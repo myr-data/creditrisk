@@ -2,10 +2,15 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 import pandas as pd
 import pickle
+import os
+
 
 app = FastAPI()
 
-model = pickle.load(open(r"D:\Codes\ML Credit Risk\project\models\best_model_xgboost.pkl", "rb"))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+model_path = os.path.join(BASE_DIR, "models", "best_model_xgboost.pkl")
+
+model = pickle.load(open(model_path, "rb"))
 
 class InputData(BaseModel):
     person_age: int
